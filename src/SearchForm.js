@@ -5,6 +5,8 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import BookModal from "./BookModal"
 import Image from 'react-bootstrap/Image';
 import axios from 'axios';
+import { useOutletContext, useLoaderData } from "react-router-dom";
+
 
 function SearchForm() {
 
@@ -14,8 +16,10 @@ function SearchForm() {
 
     const [books, setBooks] = useState([])
 
-    const [show, setShow] = useState(false);
-    const [book, setBook] = useState({volumeInfo:"test"});
+    const {cart, setCart} = useOutletContext();
+    const {fav, setFav} = useOutletContext();
+    const {show, setShow} = useOutletContext();
+    const {book, setBook} = useOutletContext();
 
     function onTitleChange(e) {
         setTitle(e.target.value)
@@ -70,7 +74,7 @@ function SearchForm() {
     return (
         <>
             <Form onSubmit={onSearch}>
-                <Form.Group className="mb-1" controlId="formBasicTitle">
+                <Form.Group className="mb-1 pt-3" controlId="formBasicTitle">
                     <Form.Label>Book title</Form.Label>
                     <Form.Control type="text" placeholder="Book title" onChange={onTitleChange}/>
                 </Form.Group>
@@ -98,11 +102,11 @@ function SearchForm() {
                             </Button>
                         </div>)
                     : 
-                    <div>No books found</div>
+                    <div className="pt-3 mt-4 text-muted border-top">No books found</div>
                 }
             </ButtonGroup>
 
-            <BookModal book={book} show={show} triggerModal={triggerModal}/>
+            <BookModal cart = {cart} setCart = {setCart} fav = {fav} setFav = {setFav} book={book} show={show} triggerModal={triggerModal}/>
         </>
     );
 }
