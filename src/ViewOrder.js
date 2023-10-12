@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useOutletContext, useLoaderData } from "react-router-dom";
 import Footer from './Footer';
 import React from "react";
+import { useNavigate } from 'react-router-dom';
 import {
   MDBBtn,
   MDBCard,
@@ -22,7 +23,7 @@ import {
 
 
 function ViewOrder(props){
-
+    const navigate = useNavigate();
     const {cart, setCart} = useOutletContext();
     const {show, setShow} = useOutletContext();
     const {book, setBook} = useOutletContext();
@@ -47,6 +48,9 @@ function ViewOrder(props){
     function submitOrder(){
         window.localStorage.removeItem("Shopping-cart");
         setCart([]);
+    }
+    function handleSearchClick(){
+        navigate(`/search-form`);
     }
 
     return (
@@ -100,8 +104,10 @@ function ViewOrder(props){
                         </div>) : <div> </div>}
                     </MDBCol>
                 </MDBRow>
-                <Button variant="success" className="w-100 p-3" key={book.id} onClick={submitOrder}> Submit order</Button>
-
+                {cart.length > 0 ? 
+                    (<Button variant="success" className="w-30 p-3" onClick={submitOrder}> Submit order</Button>)
+                    : (
+                    <Button variant="info" className="w-30 p-3" key={book.id} onClick={handleSearchClick}>Search for books</Button>)}
             </MDBContainer>
         </section>
         );

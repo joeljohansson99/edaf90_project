@@ -5,17 +5,17 @@ function NavBar() {
         <ul className="nav nav-tabs">
             <li className="nav-item">
                 <NavLink className="nav-link" to="/search-form">
-                    Sök 
+                    Search 
                 </NavLink>
             </li>
             <li className="nav-item">
                 <NavLink className="nav-link" to="/favorites">
-                    Favoriter
+                    Favorites
                 </NavLink>
             </li>
             <li className="nav-item">
                 <NavLink className="nav-link" to="/shopping-cart">
-                    Kundvagn
+                    Shopping-cart
                 </NavLink>
             </li>
         </ul>
