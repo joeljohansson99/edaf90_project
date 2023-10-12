@@ -1,11 +1,5 @@
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import BookModal from "./BookModal"
-import Image from 'react-bootstrap/Image';
-import axios from 'axios';
 import { useOutletContext, useLoaderData } from "react-router-dom";
-import Footer from './Footer';
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 import {
@@ -33,24 +27,16 @@ function ViewOrder(props){
         setShow(!show);
     }
 
-    function handleBookClick(e) {
-        const url = `https://www.googleapis.com/books/v1/volumes/${e.target.name}`;
-        axios.get(url).then(response => {
-            if (response.status != 200) {
-                throw new Error(`${url} returned status ${response.status}`);
-            }
-            return response.data;
-        }).then(data => {
-            setBook(data);
-            triggerModal();
-        });
-    }
     function submitOrder(){
         window.localStorage.removeItem("Shopping-cart");
         setCart([]);
     }
     function handleSearchClick(){
         navigate(`/search-form`);
+    }
+    function removeItem(book){
+        console.log(book)
+        setCart(oldCart => oldCart.filter(b => b.id !== book.id))
     }
 
     return (
@@ -93,10 +79,9 @@ function ViewOrder(props){
                                                 {book.saleInfo.amount}
                                             </MDBTypography>
                                         </MDBCol>
+                                        
                                         <MDBCol md="1" lg="1" xl="1" className="text-end">
-                                            <a href="#!" className="text-danger">
-                                                <MDBIcon fas icon="trash text-danger" size="lg" />
-                                             </a>
+                                            <Button key={book.id} variant="danger" className=" p-3" onClick={() => removeItem(book)}>X</Button>
                                         </MDBCol>
                                         </MDBRow>
                                     </MDBCardBody>
