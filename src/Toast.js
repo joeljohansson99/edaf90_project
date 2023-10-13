@@ -19,9 +19,8 @@ function ToastConfirm(props) {
               alt=""
             />
             <strong className="me-auto">Confirmation</strong>
-            <small>11 mins ago</small>
           </Toast.Header>
-          <Toast.Body>Book added to cart!</Toast.Body>
+          <Toast.Body dangerouslySetInnerHTML={{__html: props.body}}></Toast.Body>
         </Toast>
       </Col>
     </Row>

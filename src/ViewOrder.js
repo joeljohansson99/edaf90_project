@@ -1,7 +1,9 @@
 import Button from 'react-bootstrap/Button';
-import { useOutletContext, useLoaderData } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import React from "react";
+import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import Toast from './Toast';
 import {
   MDBBtn,
   MDBCard,
@@ -19,32 +21,35 @@ import {
 function ViewOrder(props){
     const navigate = useNavigate();
     const {cart, setCart} = useOutletContext();
-    const {show, setShow} = useOutletContext();
-    const {book, setBook} = useOutletContext();
-
-
-    function triggerModal(e) {
-        setShow(!show);
-    }
+    const [showConfirm, setShowConfirm] = useState(false);
+    const [receipt, setReceipt] = useState("");
 
     function submitOrder(){
         window.localStorage.removeItem("Shopping-cart");
+        setReceipt(`<p> Ordered books: </p> ${cart.map(book => `<p>${book.volumeInfo.title} (x${book.quantity})</p>`).join("")}`);
+        setShowConfirm(!showConfirm);
         setCart([]);
     }
+
     function handleSearchClick(){
         navigate(`/search-form`);
     }
+
     function removeItem(book){
-        console.log(book)
-        setCart(oldCart => oldCart.filter(b => b.id !== book.id))
+        const newCart = cart.filter(b => b.id !== book.id)
+        setCart(newCart)
+        window.localStorage.setItem("Cart", JSON.stringify(newCart))
     }
+
     function handleQuantityChange(e){
-        setCart(currCart => [...currCart, {...book, quantity: e.target.value}])
-        window.localStorage.setItem("Cart", JSON.stringify(cart))
+        const newCart = cart.map(b => b.id === e.target.name ? {...b , quantity:e.target.value} : b)
+        setCart(newCart);
+        window.localStorage.setItem("Cart", JSON.stringify(newCart))
     }
 
     return (
-            <section className="h-100" style={{ backgroundColor: "#eee" }}>
+            <section className="h-100">
+            <Toast setShowConfirm={setShowConfirm} showConfirm={showConfirm} body={receipt}/>
                 <MDBContainer className="py-5 h-100">
                     <MDBRow className="justify-content-center align-items-center h-100">
                         <MDBCol md="10">
@@ -60,7 +65,7 @@ function ViewOrder(props){
                                         <MDBRow className="justify-content-between align-items-center">
                                         <MDBCol md="2" lg="2" xl="2">
                                             <MDBCardImage className="rounded-3" fluid
-                                                src={book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.smallThumbnail : "ingenBild.png"}
+                                                src={book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : "ingenBild.png"}
                                                 alt="Cotton T-shirt" />
                                         </MDBCol>
                                         <MDBCol md="3" lg="3" xl="3">
@@ -72,7 +77,7 @@ function ViewOrder(props){
                                                  <MDBIcon fas icon="minus" />
                                             </MDBBtn>
 
-                                        <MDBInput min={0} defaultValue={book.quantity} onChange={handleQuantityChange} type="number" size="sm" />
+                                        <MDBInput min={0} defaultValue={book.quantity} onChange={handleQuantityChange} name={book.id} type="number" size="sm" />
 
                                         <MDBBtn color="link" className="px-2">
                                             <MDBIcon fas icon="plus" />
@@ -96,7 +101,7 @@ function ViewOrder(props){
                 {cart.length > 0 ? 
                     (<Button variant="success" className="w-30 p-3" onClick={submitOrder}> Submit order</Button>)
                     : (
-                    <Button variant="info" className="w-30 p-3" key={book.id} onClick={handleSearchClick}>Search for books</Button>)}
+                    <Button variant="info" className="w-30 p-3" onClick={handleSearchClick}>Search for books</Button>)}
             </MDBContainer>
         </section>
         );

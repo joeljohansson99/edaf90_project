@@ -11,7 +11,13 @@ const router = createBrowserRouter([
     children: [
       {
         path: "search-form",
-        element: <SearchForm />
+        element: <SearchForm />,
+        children: [
+          {
+            path: ":query",
+            element: <SearchForm />,
+          }
+        ]
       },
       {
         path: "favorites",

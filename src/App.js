@@ -16,9 +16,7 @@ function App() {
 
   useEffect(() => {
     const favorites = JSON.parse(window.localStorage.getItem("Favorites"))
-    console.log(favorites)
     if(favorites !== null){
-      console.log("here");
       setFav(favorites)
     };
   }, []);
@@ -26,7 +24,7 @@ function App() {
   useEffect(() => {
     const currentCart = JSON.parse(window.localStorage.getItem("Cart"))
     if(currentCart !== null){
-      setFav(currentCart);
+      setCart(currentCart);
     };
   }, []);        
 

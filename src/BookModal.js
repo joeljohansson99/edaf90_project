@@ -8,27 +8,30 @@ function BookModal(props){
     const {showConfirm, setShowConfirm} = props;
 
     function setFavorite(e){
-        setFav(favs => [...favs, book])
-        window.localStorage.setItem("Favorites", JSON.stringify(fav))
+        const newFav = [...fav, book]
+        setFav(newFav)
+        window.localStorage.setItem("Favorites", JSON.stringify(newFav))
         props.triggerModal()
     }
 
     function removeFavorite(e){
-        setFav(favs => favs.filter(b => b.id !== book.id))
-        window.localStorage.setItem("Favorites", JSON.stringify(fav))
+        const newFav = fav.filter(b => b.id !== book.id)
+        setFav(newFav)
+        window.localStorage.setItem("Favorites", JSON.stringify(newFav))
         props.triggerModal()
     }
 
     function addCart(e){
         if(!cart.map(b => b.id).includes(book.id)){
-            setCart(currCart => [...currCart, {...book, quantity:1}])
-            window.localStorage.setItem("Cart", JSON.stringify(cart))
+            const newCart = [...cart, {...book, quantity:1}];
+            setCart(newCart)
+            window.localStorage.setItem("Cart", JSON.stringify(newCart))
         }
         else{
             const q = cart.find(b => b.id === book.id).quantity
-            setCart(currCart => currCart.filter(b => b.id !==book.id))
-            setCart(currCart => [...currCart, {...book, quantity: q+1}])
-            window.localStorage.setItem("Cart", JSON.stringify(cart))
+            const newCart = [...cart.filter(b => b.id !== book.id), {...book, quantity: q+1}]
+            setCart(newCart)
+            window.localStorage.setItem("Cart", JSON.stringify(newCart))
         }
         setShowConfirm(!showConfirm);
         props.triggerModal()

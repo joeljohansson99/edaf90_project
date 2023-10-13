@@ -1,15 +1,11 @@
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import BookModal from "./BookModal"
 import Image from 'react-bootstrap/Image';
 import axios from 'axios';
 import { useOutletContext, useLoaderData } from "react-router-dom";
-import { Container } from 'react-bootstrap';
-import Row from 'react-bootstrap/Row';
-
-
+import Toast from './Toast';
 
 
 
@@ -19,6 +15,7 @@ function Favorites(props){
     const {show, setShow} = useOutletContext();
     const {book, setBook} = useOutletContext();
     const {cart, setCart} = useOutletContext();
+    const [showConfirm, setShowConfirm] = useState(false);
 
 
     function triggerModal(e) {
@@ -40,7 +37,7 @@ function Favorites(props){
 
     return (
         <>
-            <div> 
+            <Toast setShowConfirm={setShowConfirm} showConfirm={showConfirm} body={`<p> ${book.volumeInfo.title} was added to shopping cart! </p>`}/>
             <ButtonGroup vertical>
                     {fav.length > 0 ? 
                         fav.map(book => <div className ="pt-4" key={book.id}>
@@ -52,8 +49,7 @@ function Favorites(props){
                      <div className="pt-4">No favorite books found</div>
                     }
             </ButtonGroup>
-            <BookModal cart = {cart} setCart = {setCart} fav = {fav} setFav = {setFav} book={book} show={show} triggerModal={triggerModal}/>
-            </div>
+            <BookModal showConfirm = {showConfirm} setShowConfirm = {setShowConfirm} cart = {cart} setCart = {setCart} fav = {fav} setFav = {setFav} book={book} show={show} triggerModal={triggerModal}/>
         </>
     );
 
