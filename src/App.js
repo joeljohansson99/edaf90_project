@@ -1,9 +1,7 @@
 import './App.css';
-import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import { useState, useEffect} from 'react';
 import { Outlet } from "react-router-dom"
-import { useNavigation } from "react-router-dom";
 import Header from './Header';
 import Footer from './Footer';
 import NavBar from './Navbar';
@@ -18,8 +16,10 @@ function App() {
 
   useEffect(() => {
     const favorites = JSON.parse(window.localStorage.getItem("Favorites"))
+    console.log(favorites)
     if(favorites !== null){
-      setFav(favorites);
+      console.log("here");
+      setFav(favorites)
     };
   }, []);
 
@@ -37,6 +37,7 @@ function App() {
             <Header />
 
             <NavBar />
+            
             <Outlet context={{cart, setCart, book, setBook, show, setShow, fav, setFav, navigate}} />
 
             <Footer />

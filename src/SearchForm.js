@@ -7,7 +7,7 @@ import Image from 'react-bootstrap/Image';
 import axios from 'axios';
 import { useOutletContext, useLoaderData } from "react-router-dom";
 import Pagination from 'react-bootstrap/Pagination';
-
+import Toast from './Toast';
 
 function SearchForm() {
     const MAX_BOOKS = 10;
@@ -23,6 +23,9 @@ function SearchForm() {
     const {fav, setFav} = useOutletContext();
     const {show, setShow} = useOutletContext();
     const {book, setBook} = useOutletContext();
+
+    const [showConfirm, setShowConfirm] = useState(false);
+    const toggleShowConfirm = () => setShowConfirm(!showConfirm);
 
     function onTitleChange(e) {
         setTitle(e.target.value)
@@ -96,6 +99,7 @@ function SearchForm() {
     
     return (
         <>
+            <Toast  setShowConfirm = {setShowConfirm} showConfirm = {showConfirm}/>
             <Form onSubmit={onSearch}>
                 <Form.Group className="mb-1 pt-3" controlId="formBasicTitle">
                     <Form.Label>Book title</Form.Label>
@@ -136,7 +140,7 @@ function SearchForm() {
                 }
             </ButtonGroup>
 
-            <BookModal cart = {cart} setCart = {setCart} fav = {fav} setFav = {setFav} book={book} show={show} triggerModal={triggerModal}/>
+            <BookModal showConfirm = {showConfirm} setShowConfirm = {setShowConfirm} cart = {cart} setCart = {setCart} fav = {fav} setFav = {setFav} book={book} show={show} triggerModal={triggerModal}/>
         </>
     );
 }

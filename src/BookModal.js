@@ -5,6 +5,7 @@ function BookModal(props){
     const {fav, setFav} = props;
     const book = props.book;
     const {cart, setCart} = props;
+    const {showConfirm, setShowConfirm} = props;
 
     function setFavorite(e){
         setFav(favs => [...favs, book])
@@ -19,8 +20,17 @@ function BookModal(props){
     }
 
     function addCart(e){
-        setCart(currCart => [...currCart, book])
-        window.localStorage.setItem("Cart", JSON.stringify(cart))
+        if(!cart.map(b => b.id).includes(book.id)){
+            setCart(currCart => [...currCart, {...book, quantity:1}])
+            window.localStorage.setItem("Cart", JSON.stringify(cart))
+        }
+        else{
+            const q = cart.find(b => b.id === book.id).quantity
+            setCart(currCart => currCart.filter(b => b.id !==book.id))
+            setCart(currCart => [...currCart, {...book, quantity: q+1}])
+            window.localStorage.setItem("Cart", JSON.stringify(cart))
+        }
+        setShowConfirm(!showConfirm);
         props.triggerModal()
     }
 

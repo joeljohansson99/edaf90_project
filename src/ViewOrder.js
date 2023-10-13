@@ -38,6 +38,10 @@ function ViewOrder(props){
         console.log(book)
         setCart(oldCart => oldCart.filter(b => b.id !== book.id))
     }
+    function handleQuantityChange(e){
+        setCart(currCart => [...currCart, {...book, quantity: e.target.value}])
+        window.localStorage.setItem("Cart", JSON.stringify(cart))
+    }
 
     return (
             <section className="h-100" style={{ backgroundColor: "#eee" }}>
@@ -68,7 +72,7 @@ function ViewOrder(props){
                                                  <MDBIcon fas icon="minus" />
                                             </MDBBtn>
 
-                                        <MDBInput min={0} defaultValue={1} type="number" size="sm" />
+                                        <MDBInput min={0} defaultValue={book.quantity} onChange={handleQuantityChange} type="number" size="sm" />
 
                                         <MDBBtn color="link" className="px-2">
                                             <MDBIcon fas icon="plus" />
