@@ -25,7 +25,7 @@ function ViewOrder(props){
     const [receipt, setReceipt] = useState("");
 
     function submitOrder(){
-        window.localStorage.removeItem("Shopping-cart");
+        window.localStorage.removeItem("Cart");
         setReceipt(`<p> Ordered books: </p> ${cart.map(book => `<p>${book.volumeInfo.title} (x${book.quantity})</p>`).join("")}`);
         setShowConfirm(!showConfirm);
         setCart([]);
