@@ -39,6 +39,7 @@ function ViewOrder(props){
         const newCart = cart.filter(b => b.id !== book.id)
         setCart(newCart)
         window.localStorage.setItem("Cart", JSON.stringify(newCart))
+
     }
 
     function handleQuantityChange(e){
@@ -78,6 +79,7 @@ function ViewOrder(props){
                                             </MDBBtn>
 
                                         <MDBInput min={0} defaultValue={book.quantity} onChange={handleQuantityChange} name={book.id} type="number" size="sm" />
+
 
                                         <MDBBtn color="link" className="px-2">
                                             <MDBIcon fas icon="plus" />

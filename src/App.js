@@ -13,6 +13,15 @@ function App() {
   const [show, setShow] = useState(false);
   const [book, setBook] = useState({volumeInfo:"test"});
   const navigate = useNavigate();
+  const myStyle={
+    backgroundImage: 
+    "url('https://media.geeksforgeeks.org/wp-content/uploads/rk.png')",
+    height:'100vh',
+    marginTop:'-70px',
+    fontSize:'50px',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+};
 
   useEffect(() => {
     const favorites = JSON.parse(window.localStorage.getItem("Favorites"))
@@ -29,7 +38,7 @@ function App() {
   }, []);        
 
   return (
-    <div className="container py-4">
+    <div className="container py-4 bg-light rounded">
     {
         <>
             <Header />
