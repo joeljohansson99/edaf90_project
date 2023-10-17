@@ -43,7 +43,7 @@ function ViewOrder(props){
     }
 
     function handleQuantityChange(e){
-        const newCart = cart.map(b => b.id === e.target.name ? {...b , quantity:e.target.value} : b)
+        const newCart = cart.map(b => b.id === e.target.name ? {...b , quantity: parseInt(e.target.value)} : b)
         setCart(newCart);
         window.localStorage.setItem("Cart", JSON.stringify(newCart))
     }
