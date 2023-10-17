@@ -11,14 +11,12 @@ function BookModal(props){
         const newFav = [...fav, book]
         setFav(newFav)
         window.localStorage.setItem("Favorites", JSON.stringify(newFav))
-        props.triggerModal()
     }
 
     function removeFavorite(e){
         const newFav = fav.filter(b => b.id !== book.id)
         setFav(newFav)
         window.localStorage.setItem("Favorites", JSON.stringify(newFav))
-        props.triggerModal()
     }
 
     function addCart(e){

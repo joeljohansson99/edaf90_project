@@ -25,7 +25,7 @@ function ViewOrder(props){
     const [receipt, setReceipt] = useState("");
 
     function submitOrder(){
-        window.localStorage.removeItem("Shopping-cart");
+        window.localStorage.removeItem("Cart");
         setReceipt(`<p> Ordered books: </p> ${cart.map(book => `<p>${book.volumeInfo.title} (x${book.quantity})</p>`).join("")}`);
         setShowConfirm(!showConfirm);
         setCart([]);
@@ -39,10 +39,11 @@ function ViewOrder(props){
         const newCart = cart.filter(b => b.id !== book.id)
         setCart(newCart)
         window.localStorage.setItem("Cart", JSON.stringify(newCart))
+
     }
 
     function handleQuantityChange(e){
-        const newCart = cart.map(b => b.id === e.target.name ? {...b , quantity:e.target.value} : b)
+        const newCart = cart.map(b => b.id === e.target.name ? {...b , quantity: parseInt(e.target.value)} : b)
         setCart(newCart);
         window.localStorage.setItem("Cart", JSON.stringify(newCart))
     }
@@ -66,7 +67,7 @@ function ViewOrder(props){
                                         <MDBCol md="2" lg="2" xl="2">
                                             <MDBCardImage className="rounded-3" fluid
                                                 src={book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : "ingenBild.png"}
-                                                alt="Cotton T-shirt" />
+                                                alt="Image missing" />
                                         </MDBCol>
                                         <MDBCol md="3" lg="3" xl="3">
                                             <p className="lead fw-normal mb-2">{book.volumeInfo.title} - {book.volumeInfo.authors ? book.volumeInfo.authors.join(", ") : "No Author"}</p>
@@ -78,6 +79,7 @@ function ViewOrder(props){
                                             </MDBBtn>
 
                                         <MDBInput min={0} defaultValue={book.quantity} onChange={handleQuantityChange} name={book.id} type="number" size="sm" />
+
 
                                         <MDBBtn color="link" className="px-2">
                                             <MDBIcon fas icon="plus" />
