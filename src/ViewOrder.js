@@ -67,7 +67,7 @@ function ViewOrder(props){
                                         <MDBCol md="2" lg="2" xl="2">
                                             <MDBCardImage className="rounded-3" fluid
                                                 src={book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : "ingenBild.png"}
-                                                alt="Cotton T-shirt" />
+                                                alt="Image missing" />
                                         </MDBCol>
                                         <MDBCol md="3" lg="3" xl="3">
                                             <p className="lead fw-normal mb-2">{book.volumeInfo.title} - {book.volumeInfo.authors ? book.volumeInfo.authors.join(", ") : "No Author"}</p>
