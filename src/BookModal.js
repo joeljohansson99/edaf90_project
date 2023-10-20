@@ -3,14 +3,14 @@ import Button from 'react-bootstrap/Button';
 
 function BookModal(props) {
     const { fav, favDispatch } = props;
-    const book = props.book;
-    const cartDispatch = props;
+    const { book } = props;
+    const { cartDispatch } = props;
     const { showConfirm, setShowConfirm } = props;
 
     function addCart(e) {
         setShowConfirm(!showConfirm);
         props.triggerModal()
-        cartDispatch({ type: "add-book", book })
+        cartDispatch({ type: "add-book", book:book })
     }
 
     return (
