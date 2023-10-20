@@ -1,11 +1,11 @@
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function NavBar() {
     return (
         <ul className="nav nav-tabs">
             <li className="nav-item">
                 <NavLink className="nav-link" to="/search-form">
-                    Search 
+                    Search
                 </NavLink>
             </li>
             <li className="nav-item">

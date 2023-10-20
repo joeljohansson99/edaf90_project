@@ -5,10 +5,10 @@ function Footer() {
         <footer className="bg-light text-dark py-3 rounded fixed-bottom">
             <div className="container">
                 <div className="row">
-                <div style={{ backgroundImage:`url(${image})` ,backgroundSize:"contain" }}>
-                    <div className="col-12 text-center text-black">
-                        <p></p>
-                    </div>
+                    <div style={{ backgroundImage: `url(${image})`, backgroundSize: "contain" }}>
+                        <div className="col-12 text-center text-black">
+                            <p></p>
+                        </div>
                     </div>
                 </div>
             </div>

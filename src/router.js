@@ -5,33 +5,33 @@ import Favorites from "./Favorites";
 import ViewOrder from "./ViewOrder";
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    children: [
-      {
-        path: "search-form",
-        element: <SearchForm />,
+    {
+        path: "/",
+        element: <App />,
         children: [
-          {
-            path: ":query",
-            element: <SearchForm />,
-          }
-        ]
-      },
-      {
-        path: "favorites",
-        element: <Favorites />,
-        children : [
-        ]
-      },
-      {
-        path: "shopping-cart",
-        element: <ViewOrder />
-      }
-    ],
-    errorElement: <Error />
-  },
+            {
+                path: "search-form",
+                element: <SearchForm />,
+                children: [
+                    {
+                        path: ":query",
+                        element: <SearchForm />,
+                    }
+                ]
+            },
+            {
+                path: "favorites",
+                element: <Favorites />,
+                children: [
+                ]
+            },
+            {
+                path: "shopping-cart",
+                element: <ViewOrder />
+            }
+        ],
+        errorElement: <Error />
+    },
 ]);
 
 function Error() {
